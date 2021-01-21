@@ -9,8 +9,6 @@ ___________________________________________________________________
 
 SQL REQUEST
 
-Запрос:
-
 select
   p.internal_number as InternalNumber,
   CONCAT(e.name, '/', e.surname) as 'Name/Surname',
