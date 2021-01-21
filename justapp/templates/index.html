@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>main page</title>
+</head>
+<body>
+
+  		{% for url in allurls %}
+  			{% if url.remaining_time %}
+  			<h4><p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p></h4>
+  			{% else %}
+			<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p>
+			{% endif %}
+		<hr>
+		{% endfor%}
+
+
+
+	<div class="display" style="margin-top: 3em; margin-left: 7em;">
+		<textarea id="firstarea" rows="15" cols="60" style="border: 1px solid #888;">
+
+{% for res in allurls %}
+{{ res.original_start_at }}:
+{{ res.url }}
+{% if res in temp %}
+	Successfully parsed!
+{% else %}
+	Something went wrong!
+{% endif %}
+{% endfor %}
+
+		</textarea>
+		<textarea id="secondarea" rows="15" cols="90" style="border: 1px solid #888;">
+			{% for res in results %}
+URL:	  {{res.url}}
+TITLE:    {{res.title}}
+ENCODING: {{res.encoding}}
+H1:       {{res.h1}}
+
+
+
+			{% endfor %}
+		</textarea>
+	</div>
+
+
+</body>
+</html>
