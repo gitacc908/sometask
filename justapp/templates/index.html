@@ -2,11 +2,15 @@
 <html>
 <head>
 	<title>main page</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
   		{% for url in allurls %}
-  			{% if url.remaining_time %}
+  			{% if url in temp %}
+<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}<i class="material-icons">done</i></p>
+  		
+  			{% elif url.remaining_time %}
   			<h4><p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p></h4>
   			{% else %}
 			<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p>

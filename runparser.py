@@ -14,7 +14,7 @@ django.setup()
 
 
 
-from justapp.models import Result, UrlTimer, Error
+from justapp.models import Result, UrlTimer
 import requests 
 from bs4 import BeautifulSoup as BS
 
