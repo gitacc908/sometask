@@ -2,40 +2,43 @@
 <html>
 <head>
 	<title>main page</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 
-  		{% for url in allurls %}
-  			{% if url in temp %}
-<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}<i class="material-icons">done</i></p>
-  		
-  			{% elif url.remaining_time %}
-  			<h4><p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p></h4>
-  			{% else %}
-			<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p>
-			{% endif %}
-		<hr>
-		{% endfor%}
+	{% for url in allurls %}
+	{% if url in temp %}
+	<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}<i class="material-icons">done</i></p>
 
-
-
-	<div class="display" style="margin-top: 3em; margin-left: 7em;">
+	{% elif url.remaining_time %}
+	<h4><p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p></h4>
+	{% else %}
+	<p>{{url.url}} | Timer set "{{ url.duration_in_minutes }}-min" | Time left {{ url.remaining_time }}</p>
+	{% endif %}
+	<hr>
+	{% endfor%}
+	<form action="{% url 'actparsing' %}" method="post">
+		{% csrf_token %}
+		<button type="submit" class="btn btn-dark" style="margin-left: 32em;">Parse</button>
+	</form>
+	
+	<div class="display" style="margin-top: 1em; margin-left: 7em;">
 		<textarea id="firstarea" rows="15" cols="60" style="border: 1px solid #888;">
 
 {% for res in allurls %}
 {{ res.original_start_at }}:
 {{ res.url }}
 {% if res in temp %}
-	Successfully parsed!
+Successfully parsed!
 {% else %}
-	Something went wrong!
+Something went wrong!
 {% endif %}
 {% endfor %}
 
 		</textarea>
 		<textarea id="secondarea" rows="15" cols="90" style="border: 1px solid #888;">
-			{% for res in results %}
+{% for res in results %}
 URL:	  {{res.url}}
 TITLE:    {{res.title}}
 ENCODING: {{res.encoding}}
